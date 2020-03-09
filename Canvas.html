@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* #responsive-canvas {
+            width:100%;
+        } */
+    </style>
+</head>
+
+<body>
+    <div>
+        <canvas id="responsive-canvas"></canvas>
+        <button id="rightNode">Add node to right</button>
+        <button id="leftNode">Add node to left</button>
+        <h5>Enter a number: </h5>
+        <input type="text" id = "textbox">
+    </div>
+</body>
+<script>
+    var buttonRight = document.getElementById("rightNode");
+    buttonRight.addEventListener("click", () => {
+        currentXPosRight = currentXPosRight + XPosMoveToLineOffset;
+        currentYPosRight = currentYPosRight + YPosMoveToLineOffset;
+
+        ctx.moveTo(currentXPosRight, currentYPosRight); // line on the right side 368 34 
+        ctx.lineTo(currentXPosRight + XPosLineToLineOffset, currentYPosRight + YPosLineToLineOffset); // 427 75
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(currentXPosRight + XPosCircleOffset, currentYPosRight + YPosCircleOffset, radius, 0, 2 * Math
+            .PI); //circle on the right side
+
+        ctx.stroke(); // Circle 
+
+        
+        ctx.strokestyle = "black";
+        ctx.font = "arial";
+        ctx.fillText(textbox.value, currentXPosRight + XPosCircleOffset - 5, currentYPosRight + YPosCircleOffset + 4);
+
+
+        currentXPosRight = currentXPosRight + XPosCircleOffset; // changs position to the next line
+        currentYPosRight = currentYPosRight + YPosCircleOffset;
+    })
+
+    var buttonLeft = document.getElementById("leftNode");
+    buttonLeft.addEventListener("click", () => {
+        currentXPosLeft = currentXPosLeft - XPosMoveToLineOffset;
+        currentYPosLeft = currentYPosLeft + YPosMoveToLineOffset;
+        ctx.moveTo(currentXPosLeft, currentYPosLeft); // line on the right side 368 34 
+        ctx.lineTo(currentXPosLeft - XPosLineToLineOffset, currentYPosLeft + YPosLineToLineOffset); // 427 75
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(currentXPosLeft - XPosCircleOffset, currentYPosLeft + YPosCircleOffset, radius, 0, 2 * Math
+            .PI); //circle on the right side
+        ctx.stroke(); // Circle 
+
+        ctx.strokestyle = "black";
+        ctx.font = "arial";
+        ctx.fillText(textbox.value, currentXPosLeft - XPosCircleOffset - 5, currentYPosLeft + YPosCircleOffset + 4);
+
+        currentXPosLeft = currentXPosLeft - XPosCircleOffset; // changs position to the next line
+        currentYPosLeft = currentYPosLeft + YPosCircleOffset;
+    })
+    let textbox = document.getElementById("textbox");
+
+    let radius = 20;
+    let canvas = document.getElementById("responsive-canvas");
+    var width = window.innerWidth; // 1280
+    var height = window.innerHeight; // 704
+    canvas.width = width;
+    canvas.height = height;
+    let ctx = canvas.getContext("2d");
+
+
+    var currentXPosLeft = width / 2;
+    var currentYPosLeft = radius + 1;
+    var currentXPosRight = width / 2;
+    var currentYPosRight = radius + 1;
+
+    var XPosMoveToLineOffset = 16;
+    var YPosMoveToLineOffset = 13;
+    var XPosLineToLineOffset = 75;
+    var YPosLineToLineOffset = 54;
+
+    var XPosCircleOffset = 89;
+    var YPosCircleOffset = 69;
+
+    ctx.beginPath();
+    ctx.arc(currentXPosRight, currentYPosRight, radius, 0, 2 * Math.PI); // doesn't matter which var you use.
+    ctx.stroke(); // Circle 
+
+    // ctx.font("30px arial");
+    // context.fillText("Hello World!", 40, 40);
+
+
+    // ctx.moveTo(currentXPos - 16, currentYPos + 13); // line on the left side
+    // ctx.lineTo(currentXPos - 75, currentYPos + 54);
+    // ctx.stroke();
+
+    // ctx.beginPath();
+    // ctx.arc((width / 2) - 89, 90, radius, 0, 2 * Math.PI); //circle on the left side
+    // ctx.stroke(); // Circle 
+</script>
+
+</html>
